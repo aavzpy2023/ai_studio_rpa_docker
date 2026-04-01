@@ -23,7 +23,7 @@ The backend is structured using Hexagonal Architecture (Domain-Driven Design). C
 
 ## 4. STACK SUMMARY
 
-- **Backend:** Python 3.13, FastAPI, SQLAlchemy 2.0 (Pessimistic Locking), Alembic, Pydantic V2, Playwright (Async API).
-- **Database:** PostgreSQL 16 (Lightweight schema).
+- **Backend:** Python 3.13, FastAPI, Pydantic V2, PyAutoGUI, OpenCV (Headless Vision), Kink (DI).
+- **Database:** N/A (Stateless / File System driven).
 - **Frontend:** React 19, TypeScript, Vite, TailwindCSS (v3.4.3), TanStack Query (v5+ for Server State), Zustand (Optimistic UI for Chat), React Markdown.
-- **Infrastructure:** Docker, Docker Compose, Nginx, Xvfb, x11vnc, noVNC (websockify).
+- **Infrastructure:** Docker, Docker Compose (Multi-tenant RPA bots ports 8010+), Nginx, Xvfb, Fluxbox, x11vnc, noVNC (websockify).
