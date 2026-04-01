@@ -40,12 +40,8 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --d
     apt-get update && apt-get install -y google-chrome-stable \
     && rm -rf /var/lib/apt/lists/*
 
-# 1.5 Add ProtonVPN Official Repository and install CLI
-# NOTE: The modern package name is proton-vpn-cli (v4), protonvpn-cli (v3) is deprecated.
-RUN wget -qO - https://repo.protonvpn.com/debian/public_key.asc | tee /etc/apt/trusted.gpg.d/protonvpn.asc && \
-    echo "deb https://repo.protonvpn.com/debian stable main" > /etc/apt/sources.list.d/protonvpn.list && \
-    apt-get update && apt-get install -y proton-vpn-cli \
-    && rm -rf /var/lib/apt/lists/*
+# NOTE: proton-vpn-cli v4 requires NetworkManager/systemd/dbus which breaks in Docker.
+# We rely exclusively on the 'openvpn' package (installed above) to connect to ProtonVPN.
 
 WORKDIR /app
 

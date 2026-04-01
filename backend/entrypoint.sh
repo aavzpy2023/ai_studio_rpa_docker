@@ -5,7 +5,7 @@ echo "[INFO] Cleaning up previous X/VNC sessions..."
 rm -f /tmp/.X99-lock
 
 echo "[INFO] Starting Xvfb on DISPLAY :99..."
-Xvfb :99 -screen 0 1280x800x24 &
+Xvfb :99 -screen 0 1366x768x24 &
 sleep 2
 
 echo "[INFO] Starting lightweight Window Manager (Fluxbox)..."
