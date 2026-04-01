@@ -1,0 +1,29 @@
+# ==============================================================================
+#  LOCAL DEVELOPMENT OVERRIDES
+# ==============================================================================
+#  INSTRUCTIONS:
+#  1. Copy this file to 'Makefile.local':
+#     $ cp Makefile.local.example Makefile.local
+#
+#  2. The main Makefile automatically includes 'Makefile.local' if it exists.
+#  3. 'Makefile.local' is git-ignored, keeping your local config private.
+# ==============================================================================
+
+# --- DOCKER ORCHESTRATION ---
+# Switch to the Development Compose file.
+# This enables:
+# - Hot Reloading (Volumes mounted)
+# - Port Exposure (3000, 8000) for local debugging
+# - Development-specific env vars
+
+COMPOSE_FILE = docker-compose_dev.yml
+
+# --- OPTIONAL OVERRIDES ---
+# You can override any variable defined in the main Makefile here.
+# Examples:
+
+# Force a specific Python interpreter path
+# PYTHON_EXEC = /usr/bin/python3.11
+
+# Change the default database name for local tests
+# POSTGRES_DB = DFGChatAI_Local

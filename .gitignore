@@ -1,0 +1,170 @@
+# ========================================
+# 1. SECURITY & SECRETS (CRITICAL)
+# ========================================
+# Environment variables
+.env
+.env.*
+!.env.example
+*.env
+
+# Secrets directories
+.secrets/
+credentials/
+certs/
+keys/
+
+# ========================================
+# 2. PYTHON BACKEND
+# ========================================
+# Byte-compiled / Optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / Packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Testing & Coverage
+.coverage
+.coverage.*
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+
+# ========================================
+# 3. FRONTEND (React + Vite)
+# ========================================
+# Dependencies
+node_modules/
+.npm
+.yarn
+
+# Production Build
+frontend-react/dist/
+frontend-react/dist-ssr/
+frontend-react/build/
+frontend-react/node-modules
+node-modules
+
+# Testing & Logs
+.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vite specific
+.vite/
+*.local
+
+# ========================================
+# 4. DATA & LOCAL STORAGE
+# ========================================
+# Database persistence (CRITICAL for Docker)
+volumes/
+data/postgres/
+data/redis/
+
+# Local databases
+*.sqlite
+*.sqlite3
+*.db
+
+# Logs
+logs/
+*.log
+
+# ========================================
+# 5. IDE & EDITOR CONFIG
+# ========================================
+.vscode/
+.idea/
+.zed/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ========================================
+# 6. DOCKER & LOCAL DEV
+# ========================================
+# Ignore local development overrides if they contain specific paths/settings
+docker-compose.override.yml
+docker-compose.local.yml
+aistudio_dom_dump.html
+aistudio_error_state.png
+
+# ========================================
+# 7. EXPORT UTILITIES & ARTIFACTS
+# ========================================
+# Output files from your export script
+SKDEV_content.txt
+SKDEV_tree.txt
+SKARCH_content.txt
+SKARCH_tree.txt
+tree.txt
+SKARCH_content.txt
+SKARCH_tree.txt
+SKDEV_content.txt
+SKDEV_tree.txt
+
+# ========================================
+# 8. MISC / OS
+# ========================================
+.ollama/
+.ipynb_checkpoints/
+.prof
+
+# --- Database Scripts & Dumps ---
+# 1. Ignore everything inside the folder by default
+_db_scripts/*
+
+# 2. Exception: Allow the tooling scripts (Infrastructure as Code)
+!_db_scripts/export_db.sh
+!_db_scripts/import_db.sh
+
+# 3. Exception: Allow the specific "Golden State" backup
+!_db_scripts/in_use_backup.sql
+!_db_scripts/02_security_migration_reference.sql
+
+# Ignorar backups temporales con timestamp
+_db_scripts/backup_*.sql
+
+data/
+
+# Ignore the actual local configuration
+Makefile.local
+
+# Whitelist the example file (Ensure it's tracked even if we ignored 'Makefile.*')
+!Makefile.local.example
+.opencode

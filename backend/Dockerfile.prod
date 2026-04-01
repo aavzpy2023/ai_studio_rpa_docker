@@ -1,0 +1,59 @@
+ARG PYTHON_VERSION=3.13
+FROM python:${PYTHON_VERSION}-slim-bookworm AS builder
+
+# Dependencias de sistema para compilación y psycopg (C extensions)
+RUN apt-get update && apt-get install -y \
+    curl gcc g++ libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app/backend
+
+ENV PIP_ROOT_USER_ACTION=ignore
+
+COPY pyproject.toml README.md ./
+
+# Instalación estricta (SIN la flag [dev]) usando cache mount
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --upgrade pip && \
+    pip install --default-timeout=5600 --retries=10 .
+
+# Copiamos el código fuente y herramientas de migración
+COPY src ./src
+COPY alembic.ini ./alembic.ini
+COPY migrations ./migrations
+
+# --- STAGE 2: Runtime Minimalista ---
+FROM python:${PYTHON_VERSION}-slim-bookworm
+
+# Dependencia en runtime para PostgreSQL
+RUN apt-get update && apt-get install -y curl libpq5 && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app/backend
+
+# Privilegios mínimos
+RUN useradd -m -u 1000 appuser && \
+    chown -R appuser:appuser /app
+
+USER appuser
+
+# Copiamos binarios, paquetes y código desde el builder
+COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/python3.13/site-packages/
+COPY --from=builder /usr/local/bin/ /usr/local/bin/
+COPY --from=builder --chown=appuser:appuser /app/backend/src /app/backend/src
+COPY --from=builder --chown=appuser:appuser /app/backend/alembic.ini /app/backend/alembic.ini
+COPY --from=builder --chown=appuser:appuser /app/backend/migrations /app/backend/migrations
+
+# Variables de entorno limpias
+ENV PYTHONPATH=/app/backend/src \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    ENVIRONMENT=production
+
+EXPOSE 8000
+
+# Healthcheck nativo
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Uvicorn optimizado para concurrencia de I/O pesado y reconociendo headers del Gateway
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4", "--proxy-headers", "--forwarded-allow-ips", "*"]
