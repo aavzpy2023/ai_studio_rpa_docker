@@ -21,4 +21,4 @@ sleep 1
 
 echo "[INFO] Starting FastAPI Application..."
 # Se asume que tu API está en src/server_api.py y expone el objeto "app"
-exec uvicorn src.server_api:app --host 0.0.0.0 --port 8000
+exec uvicorn src.server_api:app --host 0.0.0.0 --port 8000 --reload
