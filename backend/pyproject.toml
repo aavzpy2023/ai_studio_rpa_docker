@@ -16,9 +16,9 @@ dependencies = [
     "python-dotenv>=1.0.1",
     "kink>=0.8.0",
     "PyAutoGUI==0.9.54",
-    "opencv-python-headless==4.9.0.80",
+    "opencv-python-headless>=4.10.0.84",
     "pyperclip==1.8.2",
-    "Pillow==10.2.0"
+    "Pillow>=11.0.0"
 ]
 
 [tool.hatch.build.targets.wheel]
