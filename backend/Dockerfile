@@ -22,7 +22,12 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # --- FINAL STAGE ---
 FROM python:${PYTHON_VERSION}-slim-bookworm
 
-# 1. Install VNC, RPA, and VPN (ProtonVPN/OpenVPN) dependencies
+# 1. Bypass resolvconf interactive installation issues in Docker
+RUN apt-get update && apt-get install -y debconf-utils && \
+    echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections && \
+    rm -rf /var/lib/apt/lists/*
+
+# 1.1 Install VNC, RPA, and VPN (ProtonVPN/OpenVPN) dependencies
 RUN apt-get update && apt-get install -y \
     curl wget gnupg xvfb x11vnc fluxbox novnc websockify \
     scrot python3-tk x11-utils libglib2.0-0 \

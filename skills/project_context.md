@@ -27,3 +27,22 @@ The backend is structured using Hexagonal Architecture (Domain-Driven Design). C
 - **Database:** N/A (Stateless / File System driven).
 - **Frontend:** React 19, TypeScript, Vite, TailwindCSS (v3.4.3), TanStack Query (v5+ for Server State), Zustand (Optimistic UI for Chat), React Markdown.
 - **Infrastructure:** Docker, Docker Compose (Multi-tenant RPA bots ports 8010+), Nginx, Xvfb, Fluxbox, x11vnc, noVNC (websockify).
+
+## 5. CONNECTIVITY & REMOTE ACCESS
+
+| Bot Instance | Service | Port (Host) | Protocol  | Client Recommendation |
+| ------------ | ------- | ----------- | --------- | --------------------- |
+| **Bot 1**    | API     | 8010        | HTTP      | Curl / Postman        |
+| **Bot 1**    | VNC     | 5910        | RFB       | Remmina / TigerVNC    |
+| **Bot 1**    | noVNC   | 6010        | WebSocket | Web Browser           |
+| **Bot 2**    | API     | 8011        | HTTP      | Curl / Postman        |
+| **Bot 2**    | VNC     | 5911        | RFB       | Remmina / TigerVNC    |
+| **Bot 2**    | noVNC   | 6011        | WebSocket | Web Browser           |
+
+**Remmina Configuration:**
+
+- **Protocol:** VNC
+- **Server:** `127.0.0.1:5910` (or 5911)
+- **Color Depth:** 16bpp or 24bpp (High Color)
+- **Quality:** Medium/High (as it's local)
+- **Password:** None (configured with `-nopw` for dev)
