@@ -4,6 +4,9 @@ set -e
 echo "[INFO] Cleaning up previous X/VNC sessions..."
 rm -f /tmp/.X99-lock
 
+echo "[INFO] Creating dummy .Xauthority to prevent Xlib crash..."
+touch ~/.Xauthority
+
 echo "[INFO] Starting Xvfb on DISPLAY :99..."
 Xvfb :99 -screen 0 1366x768x24 &
 sleep 2

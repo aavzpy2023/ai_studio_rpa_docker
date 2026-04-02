@@ -1,9 +1,10 @@
 import os
+
 import pyautogui
 
 # --- CONFIGURACIÓN DE PYAUTOGUI ---
 pyautogui.FAILSAFE = True
-pyautogui.PAUSE = 0.5 
+pyautogui.PAUSE = 0.5
 
 # --- RUTAS DE IMÁGENES (ASSETS) ---
 ASSETS_DIR = "assets"
@@ -27,6 +28,3 @@ IMG_SKDEV_INSTR = os.path.join(ASSETS_DIR, "skdev_instructions.png")
 IMG_CREATE_INSTR = os.path.join(ASSETS_DIR, "create_new_instruction.png")
 IMG_TITLE_INSTR = os.path.join(ASSETS_DIR, "create_title_instructions.png")
 IMG_AISTUDIO_TAB = os.path.join(ASSETS_DIR, "aistudio_tab.png")
-
-
-

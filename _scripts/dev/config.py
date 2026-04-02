@@ -55,5 +55,7 @@ PATHS_TO_EXCLUDE =[
     "backend/src/_module_template/", ".pytest_cache/",
     "backend/src/ai_assistant.egg-info/", "documents/", "tree.txt",
     "get_clean_db.sh", "install_dev_env.sh", "data/01_restore.sh",
-    "package-lock.json", "README.md", "backend/README.md", ".opencode"
+    "package-lock.json", "README.md", "backend/README.md", ".opencode",
+    "config", "_scripts","./aistudio_dom_dump.html", "./backend/src/auth1.txt",
+    "./backend/src/auth2.txt", "./nginx/nginx.prod.conf", "./package.json"
 ]

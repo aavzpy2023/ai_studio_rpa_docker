@@ -1,10 +1,12 @@
 import pyautogui
-from config import IMG_LOADING_SPINNER, IMG_RATE_LIMIT
+
+from src.config import IMG_LOADING_SPINNER, IMG_RATE_LIMIT
 
 
 # --- EXCEPCIONES PERSONALIZADAS ---
 class RateLimitReachedException(Exception):
     """Excepción lanzada cuando se detecta visualmente el límite de cuota."""
+
     pass
 
 
@@ -14,6 +16,7 @@ def save_debug_snapshot(name):
     pyautogui.screenshot(filename)
     print(f"      [Debug] Screenshot saved: {filename}")
 
+
 def clean_prompt_text(prompt_text):
     """Limpia el prompt eliminando las etiquetas del sistema de la API."""
     texto_limpio = prompt_text
@@ -22,6 +25,7 @@ def clean_prompt_text(prompt_text):
         texto_limpio = texto_limpio.replace("[USER]:", "").strip()
     return texto_limpio
 
+
 def is_spinner_visible():
     """Verifica si el botón 'Stop' (spinner) está en pantalla de forma segura."""
     try:
@@ -29,7 +33,8 @@ def is_spinner_visible():
         return loc is not None
     except Exception:
         return False
-    
+
+
 def check_for_rate_limit():
     """Busca visualmente el mensaje de 'You've reached your rate limit.'."""
     try:
