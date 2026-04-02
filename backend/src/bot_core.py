@@ -159,19 +159,33 @@ def execute_rpa_task(prompt_text):
     # 0. PRE-CHECK VISUAL: ¿ESTÁ ABIERTO AI STUDIO?
     # ---------------------------------------------------------
     print("   [Visión] Verificando si Google AI Studio está visible en pantalla...")
+    logo_visible = False
+    
     try:
-        # Buscamos el logo con un 80% de confianza
-        logo_visible = pyautogui.locateOnScreen(IMG_AISTUDIO_LOGO, grayscale=True, confidence=0.8)
-
-        if not logo_visible:
-            # Si devuelve None, la imagen no está en la pantalla
-            raise Exception("AISTUDIO_NOT_FOUND")
-
-        print("      [MATCH] Logo detectado. La interfaz está lista.")
-
+        # 1. Buscamos el logo reduciendo la exigencia visual a 70%
+        logo_visible = pyautogui.locateOnScreen(IMG_AISTUDIO_LOGO, grayscale=True, confidence=0.7)
     except Exception:
-        # PyAutoGUI lanza pyscreeze.ImageNotFoundException en versiones nuevas si no halla la imagen
+        pass
+
+    if not logo_visible:
+        print("      [Aviso] Logo principal no detectado. Buscando anclas secundarias (Modelo Pro)...")
+        try:
+            # 2. Fallback: Si el logo cambió (dark/light mode), buscamos el selector del Modelo Pro
+            logo_visible = pyautogui.locateOnScreen(IMG_PRO_MODEL, grayscale=True, confidence=0.7)
+        except Exception:
+            pass
+
+    if not logo_visible:
+        print("      ❌ [Fallo Visual] No se encontró ninguna ancla de AI Studio.")
+        try:
+            # 3. CRÍTICO: Si el bot sigue ciego, tomamos una foto de lo que él ve realmente.
+            pyautogui.screenshot("debug_vision_failed.png")
+            print("      📸 [DEBUG] Captura guardada en la raíz del backend: 'debug_vision_failed.png'.")
+        except Exception:
+            pass
         raise Exception("AISTUDIO_NOT_FOUND")
+
+    print("      [MATCH] Interfaz detectada. La vista está lista.")
 
     print("   [Pausa] Tienes 3 segundos para cambiar a la pestaña de AI Studio...")
     time.sleep(3)

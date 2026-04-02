@@ -15,6 +15,8 @@ export DISPLAY=:99
 # Launch Chrome in background with Docker-safe flags, forced resolution, and persistent profile
 google-chrome \
     --no-sandbox \
+    --test-type \
+    --disable-infobars \
     --disable-dev-shm-usage \
     --window-size=1366,768 \
     --start-maximized \
