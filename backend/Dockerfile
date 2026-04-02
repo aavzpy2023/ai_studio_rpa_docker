@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y debconf-utils && \
 RUN apt-get update && apt-get install -y \
     curl wget gnupg xvfb x11vnc fluxbox novnc websockify \
     scrot python3-tk x11-utils libglib2.0-0 \
-    openvpn iptables iproute2 dialog resolvconf sudo \
+    openvpn iptables iproute2 dialog resolvconf sudo xclip xsel \
     && rm -rf /var/lib/apt/lists/*
 
 # 1.2 Install Official Google Chrome (Matches Desktop Stable Channel)

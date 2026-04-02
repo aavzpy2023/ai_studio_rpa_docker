@@ -21,24 +21,24 @@ services:
       - net.ipv6.conf.all.disable_ipv6=0
     restart: unless-stopped
 
-  bot_2:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: rpa_bot_2
-    ports:
-      - "8011:8000" # API
-      - "5911:5900" # VNC
-      - "6011:6080" # noVNC
-    volumes:
-      - ./config/google-chrome/bot_2:/data/profiles/active
-      - ./backend/src:/app/src
-    environment:
-      - DISPLAY=:99
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - /dev/net/tun
-    sysctls:
-      - net.ipv6.conf.all.disable_ipv6=0
-    restart: unless-stopped
+  # bot_2:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   container_name: rpa_bot_2
+  #   ports:
+  #     - "8011:8000" # API
+  #     - "5911:5900" # VNC
+  #     - "6011:6080" # noVNC
+  #   volumes:
+  #     - ./config/google-chrome/bot_2:/data/profiles/active
+  #     - ./backend/src:/app/src
+  #   environment:
+  #     - DISPLAY=:99
+  #   cap_add:
+  #     - NET_ADMIN
+  #   devices:
+  #     - /dev/net/tun
+  #   sysctls:
+  #     - net.ipv6.conf.all.disable_ipv6=0
+  #   restart: unless-stopped

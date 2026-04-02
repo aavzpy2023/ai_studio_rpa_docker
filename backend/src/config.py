@@ -7,7 +7,10 @@ pyautogui.FAILSAFE = True
 pyautogui.PAUSE = 0.5
 
 # --- RUTAS DE IMÁGENES (ASSETS) ---
-ASSETS_DIR = "assets"
+# Resuelve la ruta absoluta dinámicamente relativa a este archivo (config.py)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ASSETS_DIR = os.path.join(BASE_DIR, "assets")
+
 IMG_BEGIN_CODE = os.path.join(ASSETS_DIR, "begin_code.png")
 IMG_TOOL_BUTTON = os.path.join(ASSETS_DIR, "tool_button.png")
 IMG_INPUT_BOX = os.path.join(ASSETS_DIR, "input_box.png")

@@ -15,6 +15,43 @@ from src.helpers import RateLimitReachedException
 app = FastAPI(title="Gemini RPA API Gateway")
 
 
+@app.get("/health")
+def health_check():
+    """Endpoint para el Healthcheck de Docker."""
+    return {"status": "healthy"}
+
+
+@app.get("/debug/vision")
+def debug_vision():
+    """X-Ray Vision: Verifica existencia y deteccion de imagenes en el contenedor Docker."""
+    import os
+
+    import pyautogui
+
+    from src.config import IMG_AISTUDIO_LOGO, IMG_TOOL_FULL
+    
+    report = {}
+    for name, path in [("Logo", IMG_AISTUDIO_LOGO), ("ToolBar", IMG_TOOL_FULL)]:
+        exists = os.path.exists(path)
+        located = False
+        if exists:
+            try:
+                # Intenta ubicar la imagen al vuelo
+                located = pyautogui.locateOnScreen(path, grayscale=True, confidence=0.7) is not None
+            except Exception:
+                pass
+        report[name] = {"exists": exists, "located": located, "path": path}
+        
+    # Toma una foto de lo que el bot está viendo AHORA mismo
+    try:
+        pyautogui.screenshot("debug_current_view.png")
+        report["screenshot"] = "Captura guardada como 'debug_current_view.png' en la raiz (/app)."
+    except Exception as e:
+        report["screenshot"] = f"Error capturando: {str(e)}"
+        
+    return report
+
+
 def check_internet_connection():
     """Verifica si la PC host tiene conexión a internet real."""
     try:
