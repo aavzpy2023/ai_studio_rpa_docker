@@ -13,6 +13,7 @@ services:
       - ./backend/src:/app/src
     environment:
       - DISPLAY=:99
+      - VPN_AUTH_ID=1
     cap_add:
       - NET_ADMIN
     devices:
@@ -35,6 +36,7 @@ services:
       - ./backend/src:/app/src
     environment:
       - DISPLAY=:99
+      - VPN_AUTH_ID=2
     cap_add:
       - NET_ADMIN
     devices:
