@@ -18,7 +18,7 @@ google-chrome \
     --test-type \
     --disable-infobars \
     --disable-dev-shm-usage \
-    --window-size=1366,768 \
+    --window-size=1920,1080 \
     --start-maximized \
     --user-data-dir=/data/profiles/active \
     --disable-blink-features=AutomationControlled \
